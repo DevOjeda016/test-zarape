@@ -3,7 +3,7 @@ import { test, expect } from '@playwright/test';
 test('Mensaje de fallo de autenticacion', async ({ page }) => {
   await page.goto('https://elzarape.github.io/pages/login.html');
   await page.getByLabel('Usuario').click();
-  await page.getByLabel('Usuario').fill('Admin.invitad'); //Usuario incorrecto
+  await page.getByLabel('Usuario').fill('Admin.invitad'); //Usuario incorrecto para accesar
   await page.getByLabel('Contraseña').click();
   await page.getByLabel('Contraseña').fill('AdminInvitado16*');
   await page.getByRole('button', { name: 'Iniciar Sesión' }).click();
