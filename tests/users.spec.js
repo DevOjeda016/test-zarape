@@ -9,8 +9,3 @@ test('Busqueda usuarios', async ({ page }) => {
   await page.getByLabel('Usuario:').click();
   await page.getByLabel('Usuario:').fill('Admin');
 });
-
-/* 
-test('Validacion de campos'), async ({ page }) => {
-  await 
-} */
