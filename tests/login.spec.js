@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('https://elzarape.github.io/admin/modules/users/view/user.html');
+});
+
 test('Mensaje de fallo de autenticacion', async ({ page }) => {
-  await page.goto('https://elzarape.github.io/pages/login.html');
   await page.getByLabel('Usuario').click();
   await page.getByLabel('Usuario').fill('Admin.invitad'); //Usuario incorrecto
   await page.getByLabel('Contraseña').click();
@@ -11,7 +14,6 @@ test('Mensaje de fallo de autenticacion', async ({ page }) => {
 });
 
 test('Inicio de sesion', async ({ page }) => {
-  await page.goto('https://elzarape.github.io/pages/login.html');
   await page.getByLabel('Usuario').click();
   await page.getByLabel('Usuario').fill('Admin.invitado');
   await page.getByLabel('Contraseña').click();

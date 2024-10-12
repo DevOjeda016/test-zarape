@@ -1,7 +1,10 @@
 import { test, expect } from '@playwright/test';
 
+test.beforeEach(async ({ page }) => {
+  await page.goto('https://elzarape.github.io/admin/modules/users/view/user.html');
+});
+
 test('test', async ({ page }) => {
-  await page.goto('https://elzarape.github.io/admin/modules/combos/view/combo.html');
   await page.getByRole('button').nth(1).click();
   await page.getByRole('textbox', { name: 'Nombre del Combo:' }).click();
   await page.getByRole('textbox', { name: 'Nombre del Combo:' }).fill('Quesadillas');
