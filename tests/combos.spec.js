@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test.beforeEach(async ({ page }) => {
-  await page.goto('https://elzarape.github.io/admin/modules/users/view/user.html');
+  await page.goto('https://elzarape.github.io/admin/modules/combos/view/combo.html');
 });
 
 test('test', async ({ page }) => {
