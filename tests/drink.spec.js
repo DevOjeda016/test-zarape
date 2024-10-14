@@ -74,3 +74,4 @@ test.describe('Mensajes de validacion de campos de nuevo registro', () => {
       await page.getByRole('button', { name: 'Limpiar' }).click();
       await page.getByRole('button', { name: 'Close' }).click();
     });
+    
