@@ -10,6 +10,26 @@ test('Busqueda usuarios', async ({ page }) => {
   await page.getByLabel('Usuario:').fill('Admin');
 });
 
+test('Registro de dato no numerico', async ({ page }) => {
+    await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    const nombre = await page.getByLabel('Nombre(s)').inputValue();
+    await page.getByText('Apellido paterno').fill('Ojeda');
+    const aPaterno = await page.getByText('Apellido paterno').inputValue();
+    await page.getByText('Apellido materno').fill('Luna');
+    const aMaterno = await page.getByText('Apellido materno').inputValue();
+    await page.getByLabel('Telefono').fill('No soy telefono');
+    const numero = await page.getByLabel('Telefono').inputValue();
+    await page.getByLabel('Sucursal').selectOption('3');
+    await page.getByLabel('Usuario', { exact: true }).fill('AdminInvitadoTest');
+    await page.getByRole('button', { name: 'Generar contraseña' }).click();
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByLabel(`Vista previa ${nombre} ${aPaterno} ${aMaterno}`)).toBeVisible();
+    expect(Number.isNaN(numero)).toBeTruthy();
+    await page.getByRole('button', { name: 'Sí' }).click();
+});
+
+
 test.describe('Automatizacion CRUD', () => {
   test('Crear', async ({ page }) => {
     await page.getByRole('button', { name: 'Crear nuevo registro' }).click();

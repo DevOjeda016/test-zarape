@@ -20,9 +20,9 @@ test.describe('Mensajes de validacion de campos de nuevo registro', () => {
     await expect(page.getByText('Ingrese un nombre')).toBeVisible();
   });
   test('Campo vacio registrar', async ({ page }) => {
-  await page.getByRole('textbox', { name: 'Nombre' }).fill('Refresco');
-  await page.getByRole('button', { name: 'Registrar' }).click();
-  await expect(page.getByText('Ingrese descripcion')).toBeVisible();
+    await page.getByRole('textbox', { name: 'Nombre' }).fill('Refresco');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Ingrese descripcion')).toBeVisible();
   });
   test('Campo vacio categoria', async ({ page }) => {
     await page.getByRole('textbox', { name: 'Nombre' }).fill('Refresco');
@@ -44,4 +44,5 @@ test.describe('Mensajes de validacion de campos de nuevo registro', () => {
     await page.getByRole('spinbutton', { name: 'Precio' }).fill('15');
     await page.getByRole('button', { name: 'Registrar' }).click();
     await expect(page.getByText('Ingrese imagen del producto')).toBeVisible();
-  });
+  })
+})
