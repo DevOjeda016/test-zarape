@@ -11,44 +11,71 @@ test('Busqueda usuarios', async ({ page }) => {
 });
 
 
-test.describe('Validacion de campos', () => {
-  test('Campos de nuevo registro', async ({ page }) => {
+test.describe('Mensajes de validacion de campos', () => {
+  test.beforeEach(async ({ page }) => {
     await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
-    await page.getByLabel('Nombre(s)').fill('Admin');
-    const nameField = page.getByLabel('Nombre(s)');
-    const name = await nameField.inputValue();
-    await page.getByLabel('Apellido paterno').fill('Admin');
-    const lastName1Field = page.getByLabel('Nombre(s)');
-    const lastName1 = await lastName1Field.inputValue();
-    await page.getByLabel('Apellido materno').fill('Admin');
-    const lastName2Field = page.getByLabel('Nombre(s)');
-    const lastName2 = await lastName2Field.inputValue();
-    await page.getByLabel('Telefono').fill('477647274');
-    const phoneField = page.getByLabel('Telefono');
-    const phone = await phoneField.inputValue();
-    expect(!isNaN(phone) && phone.trim() !== '').toBe(true);
-    if (!isNaN(phone) && phone.trim() !== '') {
-      console.log('El campo contiene un número válido:', phone);
-    } else {
-      console.error('El campo no contiene un número válido.');
-    }
-    await page.getByLabel('Sucursal').selectOption('3');
-    await page.getByLabel('Usuario', { exact: true }).fill('Daniel Ojeda ');
-    await page.getByRole('button', { name: 'Generar contraseña' }).click();
-    const passField = page.getByLabel('Nueva contraseña', { exact: true }); 
-    const pass = await passField.inputValue();
-    console.log('valor del campo', pass);
-    const confirmPassField = page.getByLabel('Confirmar Nueva contraseña');
-    const passConfirmed = await confirmPassField.inputValue();
-    expect(pass === passConfirmed).toBe(true);
-    if (pass === passConfirmed) {
-      console.log('La verificacion de la contraseña son validas');
-    } else {
-      console.error('La verificacion de la contraseña no son validas\n', `Pass: ${pass}\n`, `Pass confrimada: ${passConfirmed}`);
-    }
-    await page.getByRole('button', { name: 'Registrar' }).click();
-    await page.getByRole('button', { name: 'Sí' }).click();
-    await expect(page.getByLabel(`Vista previa ${name} ${lastName1} ${lastName2}`)).toBeVisible();
-    const txtNumber = page.getByText('Número telefónico: 477647273');
   })
-}); 
+  test('Campo vacio nombre', async ({ page }) => {
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Ingrese un nombre')).toBeVisible();
+  })
+  test('Campo vacio apellido paterno', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Ingrese el apellido paterno')).toBeVisible();
+  })
+  test('Campo vacio apellido materno', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    page.getByText('Apellido paterno').fill('Ojeda');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Ingrese el apellido materno')).toBeVisible();
+  })
+  test('Campo vacio telefono', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    page.getByText('Apellido paterno').fill('Ojeda');
+    page.getByText('Apellido materno').fill('Luna');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Ingrese el numero de telefono')).toBeVisible();
+  })
+  test('Selector default sucursal', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    page.getByText('Apellido paterno').fill('Ojeda');
+    page.getByText('Apellido materno').fill('Luna');
+    await page.getByLabel('Telefono').fill('477647274');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Seleccione un sucursal')).toBeVisible();
+  })
+  test('Campo vacio usuario', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    page.getByText('Apellido paterno').fill('Ojeda');
+    page.getByText('Apellido materno').fill('Luna');
+    await page.getByLabel('Telefono').fill('477647274');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Seleccione un sucursal')).toBeVisible();
+    await page.getByLabel('Sucursal').selectOption('3');
+    await expect(page.getByText('Ingrese el usuario')).toBeVisible();
+  })
+  test('Campo vacio contraseña', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    page.getByText('Apellido paterno').fill('Ojeda');
+    page.getByText('Apellido materno').fill('Luna');
+    await page.getByLabel('Telefono').fill('477647274');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Seleccione un sucursal')).toBeVisible();
+    await page.getByLabel('Sucursal').selectOption('3');
+    await page.getByLabel('Usuario', { exact: true }).fill('DevOjeda016');
+    await expect(page.getByText('Ingrese la contraseña')).toBeVisible();
+  })
+  test('Campo vacio confirmar contraseña', async ({ page }) => {
+    await page.getByLabel('Nombre(s)').fill('Daniel');
+    page.getByText('Apellido paterno').fill('Ojeda');
+    page.getByText('Apellido materno').fill('Luna');
+    await page.getByLabel('Telefono').fill('477647274');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await expect(page.getByText('Seleccione un sucursal')).toBeVisible();
+    await page.getByLabel('Sucursal').selectOption('3');
+    await page.getByLabel('Usuario', { exact: true }).fill('DevOjeda016');
+    await page.getByLabel('Nueva contraseña', { exact: true }).fill('AdminInvitado016*');
+    await expect(page.getByText('Ingrese la confirmacion de contraseña')).toBeVisible();
+  })
+})

@@ -15,10 +15,7 @@ test('test', async ({ page }) => {
   await page.getByLabel('Bebidas:', { exact: true }).press('Enter');
   await page.getByRole('cell', { name: 'Quesadillas crujientes,' }).dblclick();
 });
-test('test', async ({ page }) => {
-  // Navegar a la página
-  await page.goto('https://elzarape.github.io/admin/modules/combos/view/combo.html');
-
+test('Agregar regirtro', async ({ page }) => {
   // Crear nuevo registro
   await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
 

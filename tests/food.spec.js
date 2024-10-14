@@ -10,10 +10,7 @@ test('test', async ({ page }) => {
   await page.getByLabel('Alimentos:').fill('Tacos');
   await page.getByRole('cell', { name: 'Tacos al Pastor' }).click();
 });
-test('test', async ({ page }) => {
-  // Navegar a la página
-  await page.goto('https://elzarape.github.io/admin/modules/foods/view/food.html');
-
+test('Agregar registro', async ({ page }) => {
   // Crear nuevo registro
   await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
 
