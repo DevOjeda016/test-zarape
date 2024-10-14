@@ -43,4 +43,5 @@ test.describe('Mensajes de validacion de campos de nuevo registro', () => {
     await page.getByRole('spinbutton', { name: 'Precio' }).fill('15');
     await page.getByRole('button', { name: 'Registrar' }).click();
     await expect(page.getByText('Ingrese imagen del producto')).toBeVisible();
-  });
+  })
+})

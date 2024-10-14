@@ -15,49 +15,36 @@ test('test', async ({ page }) => {
   await page.getByLabel('Bebidas:', { exact: true }).press('Enter');
   await page.getByRole('cell', { name: 'Quesadillas crujientes,' }).dblclick();
 });
-test('Agregar regirtro', async ({ page }) => {
-  // Crear nuevo registro
+test.describe('Automatizacion CRUD', () => {
+test('Crear', async ({ page }) => {
   await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
-
-  // Intento de registrar sin datos
+  await page.getByRole('textbox', { name: 'Nombre del Combo:' }).fill('combo');
+  await page.getByRole('textbox', { name: 'Descripción:' }).fill('Descripcion combo');
+  await page.getByLabel('Crear Combo Nombre del Combo').getByText('Tacos al Pastor').click();
+  await page.getByLabel('Crear Combo Nombre del Combo').getByText('Café Americano').click();
+  await page.getByRole('spinbutton', { name: 'Precio:' }).fill('12');
+  await page.getByLabel('Imagen:', { exact: true }).setInputFiles('WhatsApp Image 2024-10-12 at 10.41.19 PM(1).jpeg');
   await page.getByRole('button', { name: 'Registrar' }).click();
-
-  // Verificación de campos vacíos al registrar
-  const nombreRegistro = await page.getByRole('textbox', { name: 'Nombre' }).inputValue();
-  const descripcionRegistro = await page.getByRole('textbox', { name: 'Descripción' }).inputValue();
-  const precioRegistro = await page.getByRole('spinbutton', { name: 'Precio' }).inputValue();
-
-  // Si los campos están vacíos, mostrar mensaje de error y cerrar el modal
-  if (!nombreRegistro || !descripcionRegistro || !precioRegistro) {
-    console.log("No tiene implantado un alert para registros vacíos");
-    await page.getByRole('button', { name: 'Close' }).click();
-    return;
-  }
-
-  // Continuar con el cierre del modal si los campos están llenos
-  await page.getByRole('button', { name: 'Close' }).click();
-
-  // Seleccionar un combo de la lista
-  await page.getByText('Quesadillas, tostadas, guacamole y coca cola').click();
-
-  // Limpiar los campos
-  await page.getByRole('button', { name: 'Limpiar' }).click();
-
-  // Intento de modificar sin datos
+  await page.getByRole('button', { name: 'Sí' }).click();
+});
+test('Actualizar', async ({ page }) => {
+  await page.getByText('combo', { exact: true }).click();
+  await page.getByRole('textbox', { name: 'Nombre del Combo:' }).click();
+  await page.getByRole('textbox', { name: 'Nombre del Combo:' }).fill('ombo2');
+  await page.getByRole('textbox', { name: 'Descripción:' }).click();
+  await page.getByRole('textbox', { name: 'Descripción:' }).fill('Descripcion combo2');
+  await page.getByLabel('Modificar Combo #: Nombre del').getByText('Tamales').click();
+  await page.getByLabel('Modificar Combo #: Nombre del').getByText('Sopes').click();
+  await page.getByLabel('Modificar Combo #: Nombre del').getByText('Chocolate', { exact: true }).click();
+  await page.getByRole('spinbutton', { name: 'Precio:' }).fill('13');
+  await page.getByLabel('Imagen del Combo:', { exact: true }).click();
   await page.getByRole('button', { name: 'Modificar' }).click();
+  await page.getByRole('button', { name: 'Sí' }).click();
+});
 
-  // Verificación de campos vacíos al modificar
-  const nombreModificar = await page.getByRole('textbox', { name: 'Nombre' }).inputValue();
-  const descripcionModificar = await page.getByRole('textbox', { name: 'Descripción' }).inputValue();
-  const precioModificar = await page.getByRole('spinbutton', { name: 'Precio' }).inputValue();
-
-  // Si los campos están vacíos al modificar, mostrar mensaje de error
-  if (!nombreModificar || !descripcionModificar || !precioModificar) {
-    console.log("No tiene implantado un alert para modificar un registro sin datos");
-    return;
-  }
-
-  // Eliminar el registro
+test('Eliminar', async ({ page }) => {
+  await page.getByRole('cell', { name: 'Descripcion combo' }).click();
   await page.getByRole('button', { name: 'Eliminar' }).click();
   await page.getByRole('button', { name: 'Sí' }).click();
+});
 });

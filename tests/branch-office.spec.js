@@ -113,3 +113,4 @@ test('Campo vacio ULTIMO', async ({ page }) => {
   await page.getByRole('button', { name: 'Registrar' }).click();
   await expect(page.getByText('Ingrese un nombre')).toBeVisible();
 });
+});
