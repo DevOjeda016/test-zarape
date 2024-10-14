@@ -45,33 +45,35 @@ test.describe('Mensajes de validacion de campos de nuevo registro', () => {
     await page.getByRole('button', { name: 'Registrar' }).click();
     await expect(page.getByText('Ingrese imagen del producto')).toBeVisible();
   });
-  test.describe('Automatizacion CRUD', () => {
-    test('Crear', async ({ page }) => {
-      await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
-      await page.getByRole('textbox', { name: 'Nombre' }).fill('agua');
-      await page.getByRole('textbox', { name: 'Descripción' }).fill('agua simple');
-      await page.getByLabel('Crear nuevo registro Nombre').getByLabel('Categoria').selectOption('4');
-      await page.getByRole('spinbutton', { name: 'Precio' }).fill('1');
-      await page.getByRole('textbox', { name: 'Imagen' }).setInputFiles('Sin título.jpg');
-      await page.getByRole('button', { name: 'Registrar' }).click();
-      await page.getByRole('button', { name: 'Sí' }).click();
-    });
-    test('test', async ({ page }) => {
-      await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
-      await page.getByRole('textbox', { name: 'Nombre' }).fill('agua');
-      await page.getByRole('textbox', { name: 'Descripción' }).click();
-      await page.getByRole('textbox', { name: 'Descripción' }).fill('agua simple');
-      await page.getByLabel('Crear nuevo registro Nombre').getByLabel('Categoria').selectOption('4');
-      await page.getByRole('spinbutton', { name: 'Precio' }).click();
-      await page.getByRole('spinbutton', { name: 'Precio' }).fill('1');
-      await page.getByRole('textbox', { name: 'Imagen' }).click();
-      await page.getByRole('textbox', { name: 'Imagen' }).setInputFiles('Sin título.jpg');
-      await page.getByRole('button', { name: 'Registrar' }).click();
-      await page.getByRole('button', { name: 'Sí' }).click();
-    });
-    test('Limpiar', async ({ page }) => {
-      await page.getByRole('cell', { name: 'agua' }).nth(4).click();
-      await page.getByRole('button', { name: 'Limpiar' }).click();
-      await page.getByRole('button', { name: 'Close' }).click();
-    });
-    
+})
+
+test.describe('Automatizacion CRUD', () => {
+  test('Crear', async ({ page }) => {
+    await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
+    await page.getByRole('textbox', { name: 'Nombre' }).fill('agua');
+    await page.getByRole('textbox', { name: 'Descripción' }).fill('agua simple');
+    await page.getByLabel('Crear nuevo registro Nombre').getByLabel('Categoria').selectOption('4');
+    await page.getByRole('spinbutton', { name: 'Precio' }).fill('1');
+    await page.getByRole('textbox', { name: 'Imagen' }).setInputFiles('Sin título.jpg');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await page.getByRole('button', { name: 'Sí' }).click();
+  });
+  test('test', async ({ page }) => {
+    await page.getByRole('button', { name: 'Crear nuevo registro' }).click();
+    await page.getByRole('textbox', { name: 'Nombre' }).fill('agua');
+    await page.getByRole('textbox', { name: 'Descripción' }).click();
+    await page.getByRole('textbox', { name: 'Descripción' }).fill('agua simple');
+    await page.getByLabel('Crear nuevo registro Nombre').getByLabel('Categoria').selectOption('4');
+    await page.getByRole('spinbutton', { name: 'Precio' }).click();
+    await page.getByRole('spinbutton', { name: 'Precio' }).fill('1');
+    await page.getByRole('textbox', { name: 'Imagen' }).click();
+    await page.getByRole('textbox', { name: 'Imagen' }).setInputFiles('Sin título.jpg');
+    await page.getByRole('button', { name: 'Registrar' }).click();
+    await page.getByRole('button', { name: 'Sí' }).click();
+  });
+  test('Limpiar', async ({ page }) => {
+    await page.getByRole('cell', { name: 'agua' }).nth(4).click();
+    await page.getByRole('button', { name: 'Limpiar' }).click();
+    await page.getByRole('button', { name: 'Close' }).click();
+  });
+})
